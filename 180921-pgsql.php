@@ -7,13 +7,13 @@ $dbopts = parse_url(getenv("DATABASE_URL"));
 print_r($$dbopts );
 
 //pgsql:host=localhost;port=5432;dbname=testdb;user=bruce;password=mypass
-$pdo = new PDO(sprintf("pgsql:host=%s;port=%s;user=%s;password=%s;dbname=%s",
+$pdo = new PDO("pgsql:".sprintf("host=%s;port=%s;user=%s;password=%s;dbname=%s",
     $dbopts["host"],
     $dbopts["port"],
     $dbopts["user"],
     $dbopts["pass"],
     ltrim(dbopts["path"], "/")
-));
+);
 
 
 ?>
