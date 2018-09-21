@@ -5,16 +5,10 @@ error_reporting(E_ALL & ~E_NOTICE); //所有錯誤中排除NOTICE提示
 
 
 try{
-$dbopts = parse_url(getenv("DATABASE_URL"));
-print_r($dbopts );
+$dbopts = parse_url( getenv("DATABASE_URL") );
+print_r( $dbopts );
 
-$db_url="pgsql:".sprintf("host=%s;port=%s;user=%s;password=%s;dbname=%s",
-    $dbopts["host"],
-    $dbopts["port"],
-    $dbopts["user"],
-    $dbopts["pass"],
-    ltrim(dbopts["path"], "/");
-                         
+$db_url="";                 
 print_r($db_url );
                            
 //pgsql:host=localhost;port=5432;dbname=testdb;user=bruce;password=mypass
