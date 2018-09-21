@@ -1,6 +1,8 @@
 <?php
 //header("content-Type: application/json; charset=utf-8"); //強制
 
+echo $tmp=parse_url(getenv("DATABASE_URL"));
+
 $db=(object)[];
 $db->host = ''.$_ENV['MYSQL_HOST'];//'localhost'
 $db->user = ''.$_ENV['MYSQL_USERNAME'];
