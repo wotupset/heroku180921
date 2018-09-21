@@ -3,7 +3,11 @@
 
 error_reporting(E_ALL & ~E_NOTICE); //所有錯誤中排除NOTICE提示
 
-$pdb = new PDO(getenv("DATABASE_URL") );
+$db = parse_url(getenv("DATABASE_URL"));
+
+print_r($db );
+
+
 
 
 
