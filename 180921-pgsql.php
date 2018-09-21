@@ -8,12 +8,13 @@ try{
 $dbopts = parse_url(getenv("DATABASE_URL"));
 print_r($dbopts );
 
-$db_url=sprintf("pgsql:host=%s;port=%s;user=%s;password=%s;dbname=%s",
+$db_url="pgsql:".sprintf("host=%s;port=%s;user=%s;password=%s;dbname=%s",
     $dbopts["host"],
     $dbopts["port"],
     $dbopts["user"],
     $dbopts["pass"],
     ltrim(dbopts["path"], "/");
+                         
 print_r($db_url );
                            
 //pgsql:host=localhost;port=5432;dbname=testdb;user=bruce;password=mypass
