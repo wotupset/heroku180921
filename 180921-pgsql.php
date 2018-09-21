@@ -16,17 +16,10 @@ error_reporting(E_ALL & ~E_NOTICE); //所有錯誤中排除NOTICE提示
 try{
 //連結
 
-$db = new PDO(getenv("DATABASE_URL") );
+$pdb = new PDO(getenv("DATABASE_URL") );
 	
-/*
-	$db_config['dsn'],
-	$db_config['user'],
-	$db_config['password'],
-	$db_config['options']
-*/
 
 
-//show variables like '%time_zone%';
 
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤(連結):".$chk);}//錯誤訊息
 
