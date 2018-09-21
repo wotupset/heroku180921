@@ -15,27 +15,15 @@ error_reporting(E_ALL & ~E_NOTICE); //所有錯誤中排除NOTICE提示
 
 try{
 //連結
-require_once('180313-login_info.php');
 
-//$tmp=function(){
-if(1){
-$dbhost = $db->host;
-$dbuser = $db->user;
-$dbpass = $db->pass;
-$dbname = $db->name;
-};
-
-$db_config['dsn'] = "mysql:host=$dbhost;dbname=$dbname;";//charset=utf8
-$db_config['user'] = $dbuser;
-$db_config['password'] = $dbpass;
-$db_config['options'] = array();
-//array(PDO::MYSQL_ATTR_INIT_COMMAND =>"SET NAMES 'utf8' COLLATE 'utf8_general_ci';")
-$db = new PDO(
+$db = new PDO(getenv("DATABASE_URL") );
+	
+/*
 	$db_config['dsn'],
 	$db_config['user'],
 	$db_config['password'],
 	$db_config['options']
-);
+*/
 
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
 $db->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES 'utf8' COLLATE 'utf8_unicode_ci';");
