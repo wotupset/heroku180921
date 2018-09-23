@@ -107,11 +107,15 @@ if($err[0]>0){print_r( $err );}
 //列出全部table
 $sql=<<<EOT
 SELECT * FROM pg_catalog.pg_tables 
-EOT;
-/*
 WHERE schemaname != 'pg_catalog' 
 AND schemaname != 'information_schema';
-*/
+EOT;
+$sql=<<<EOT
+SELECT * FROM information_schema.tables 
+WHERE table_schema = 'public'
+EOT;
+
+  
 print_r($sql);
 echo "\n";
 //AND schemaname != 'information_schema';
