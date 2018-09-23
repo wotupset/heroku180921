@@ -180,13 +180,7 @@ if($err[0]>0){print_r( $err );}//錯誤資訊
 $cc=0;
 $FFF=$stmt;
 $FFF2=$stmt;
-foreach($FFF2 as  $key => $value){ 
-  $cc++;
-  echo "a".$cc."\t";
-  //print_r($value);
-  echo $value['tablename']."";
-  echo "\n";
-}
+
 $cc=0;
 while ($row = $FFF->fetch() ) {
   //print_r($row);
