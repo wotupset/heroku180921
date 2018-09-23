@@ -110,7 +110,7 @@ EOT;
 $sqla=<<<EOT
 DROP TABLE IF EXISTS ?
 EOT;
-$sqla=<<<EOT
+$sql=<<<EOT
 DROP TABLE IF EXISTS :table_name
 EOT;
 
@@ -120,7 +120,7 @@ echo "\n";
 //IF NOT EXISTS
 $stmt = $db->prepare($sql);
 //$stmt->execute( $table_name ); //通过数组设置参数，执行 SQL 模版
-//$stmt->bindParam(':table_name', $table_name); //通过bindParam设置参数
+$stmt->bindParam(':table_name', $table_name); //通过bindParam设置参数
 $stmt->execute();
 //$stmt=$db->query($sql);
   
