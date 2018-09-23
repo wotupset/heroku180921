@@ -111,10 +111,14 @@ WHERE schemaname != 'pg_catalog'
 AND schemaname != 'information_schema';
 EOT;
 $sql=<<<EOT
-SELECT * FROM information_schema.tables 
-WHERE table_schema = 'public'
+SELECT * FROM pg_catalog.pg_tables 
+WHERE schemaname = 'public';
 EOT;
+/*
+information_schema.tables 
+  table_schema = 'public'
 
+*/
   
 print_r($sql);
 echo "\n";
@@ -128,6 +132,7 @@ if($err[0]>0){print_r( $err );}
   
 $cc=0;
 while ($row = $stmt->fetch() ) {
+  print_r($row);
   $cc++;
   echo $cc."\t";
   echo $row['tablename']."\t";
