@@ -153,10 +153,8 @@ echo "\n";
 //AND schemaname != 'information_schema';
 //$stmt=$db->query($sql);
 $stmt = $db->prepare($sql);
-$result=$stmt->execute();
-print_r($result);
+$stmt->execute();
 
-  
 $err=$db->errorInfo();
 if($err[0]>0){print_r( $err );}//錯誤資訊
 
@@ -180,7 +178,8 @@ if($err[0]>0){print_r( $err );}//錯誤資訊
 */
 //$query->fetchAll()
 $cc=0;
-foreach($stmt as  $key => $value){ 
+$FFF=$stmt;
+foreach($FFF as  $key => $value){ 
   $cc++;
   echo "a".$cc."\t";
   //print_r($value);
@@ -188,7 +187,7 @@ foreach($stmt as  $key => $value){
   echo "\n";
 }
 $cc=0;
-while ($row = $stmt->fetch() ) {
+while ($row = $FFF->fetch() ) {
   //print_r($row);
   $cc++;
   echo "b".$cc."\t";
