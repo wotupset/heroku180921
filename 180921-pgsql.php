@@ -212,7 +212,22 @@ while ($row = $stmt->fetch() ) {
 
 
 
+try{
 
+//插入資料 方法1 问号占位符的预处理语句
+$sql=<<<EOT
+INSERT INTO $table_name (c01,c02,c03) VALUES ( ? , ? , ? );
+EOT;
+$stmt=$db->prepare($sql);
+$array=array( uniqid('u',1),'不用不用',  $time );
+$stmt->execute($array)
+
+
+
+
+
+  
+}catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 
 
