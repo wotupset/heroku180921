@@ -105,12 +105,22 @@ if(1){
 $sql=<<<EOT
 DROP TABLE IF EXISTS {$table_name}
 EOT;
+$sql=<<<EOT
+DROP TABLE IF EXISTS ?
+EOT;
+$sql=<<<EOT
+DROP TABLE IF EXISTS :table_name
+EOT;
+
+  
 print_r($sql);
 echo "\n";
 //IF NOT EXISTS
-//$stmt = $db->prepare($sql);
-//$stmt->execute();
-$stmt=$db->query($sql);
+$stmt = $db->prepare($sql);
+//$stmt->execute( $table_name ); //通过数组设置参数，执行 SQL 模版
+$stmt->bindParam(':table_name', $table_name); //通过bindParam设置参数
+$stmt->execute();
+//$stmt=$db->query($sql);
   
 $err=$db->errorInfo();
 if($err[0]>0){print_r( $err );}//錯誤資訊
@@ -132,12 +142,24 @@ CREATE TABLE IF NOT EXISTS {$table_name}
     timestamp timestamp default current_timestamp
 )
 EOT;
+$sql=<<<EOT
+CREATE TABLE IF NOT EXISTS :table_name 
+(
+    c01 text NOT NULL,
+    c02 text NOT NULL,
+    c03 text NOT NULL,
+    ID SERIAL UNIQUE PRIMARY KEY,
+    timestamp timestamp default current_timestamp
+)
+EOT;
+
 print_r($sql);
 echo "\n";
 //IF NOT EXISTS
-$stmt=$db->query($sql);
-//$stmt = $db->prepare($sql);
-//$stmt->execute();
+//$stmt=$db->query($sql);
+$stmt = $db->prepare($sql);
+$stmt->bindParam(':table_name', $table_name); //通过bindParam设置参数
+$stmt->execute();
   
 $err=$db->errorInfo();
 if($err[0]>0){print_r( $err );}//錯誤資訊
@@ -191,13 +213,13 @@ if($err[0]>0){print_r( $err );}//錯誤資訊
     [rowsecurity] => 
     [7] => 
 */
+//$query->fetchAll()
 $cc=0;
-foreach($stmt as  $key => $value){
+foreach($stmt as  $key => $value){ 
   $cc++;
   echo $cc."\t";
-  print_r($key);
-  print_r($value);
-  echo $value['tablename'].", ";
+  //print_r($value);
+  echo $value['tablename']."";
   echo "\n";
 }
 $cc=0;
@@ -205,7 +227,7 @@ while ($row = $stmt->fetch() ) {
   //print_r($row);
   $cc++;
   echo $cc."\t";
-  echo $row['tablename'].", ";
+  echo $row['tablename']."";
   echo "\n";
 }
 
