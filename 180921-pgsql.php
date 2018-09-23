@@ -34,8 +34,17 @@ print_r($db_url );
 $db = new PDO( $db_url );
 echo "\n";
 if(!$db){die('連線失敗');}
-echo '連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
+$FFF=$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
+$err=$db->errorInfo();
+if($err[0]>0){print_r( $err );}//錯誤資訊
+echo '[pdo]連線狀態='.$FFF;
 echo "\n";
+$FFF=$db -> setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
+$err=$db->errorInfo();
+if($err[0]>0){print_r( $err );}//錯誤資訊
+echo '[pdo]連線狀態='.$FFF;
+echo "\n";
+
 
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
