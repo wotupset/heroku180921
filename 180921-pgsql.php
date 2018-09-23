@@ -13,7 +13,7 @@ echo '[php]timezone='.$timezone."\n";
 echo '[php]now='.date("Y-m-d H:i:s",$time)."\n";
 echo '[php]UTC='.gmdate("Y-m-d H:i:s",$time)."\n";
 
-
+$table_name = "nya180923";
 ///
 try{
 $db_p = parse_url( getenv("DATABASE_URL") );
