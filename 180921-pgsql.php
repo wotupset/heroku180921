@@ -222,9 +222,12 @@ $stmt=$db->prepare($sql);
 $array=array();
 $array[0]=array( uniqid('u',1),'不用不用',  $time );
 $array[1]=array( uniqid('u',1),'问号占位符的预处理语句111',  $time );
-$stmt->execute($array);
-$err=$db->errorInfo();
-if($err[0]>0){print_r( $err );}//錯誤資訊
+foreach ($array as $k=>$v){
+  $stmt->execute($v);
+  $err=$db->errorInfo();
+  if($err[0]>0){print_r( $err );}//錯誤資訊
+}
+
 
 
 //插入資料 方法2 命名占位符的预处理语句
@@ -243,10 +246,11 @@ $array[1]=array(
   ':c02' => '命名占位符的预处理语句222',
   ':c03' => base64_encode($time2) ,
 );
-
-$stmt->execute($array);
-$err=$db->errorInfo();
-if($err[0]>0){print_r( $err );}//錯誤資訊
+foreach ($array as $k=>$v){
+  $stmt->execute($v);
+  $err=$db->errorInfo();
+  if($err[0]>0){print_r( $err );}//錯誤資訊
+}
 
   
 }catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
