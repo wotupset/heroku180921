@@ -14,15 +14,15 @@ print_r($db_url );
 //pgsql:host=localhost;port=5432;dbname=testdb;user=bruce;password=mypass
   
   
-$pdo = new PDO( $db_url );
-
-
+$db = new PDO( $db_url );
+echo '1連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
+  
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 
 ///
 
-if(!$pdo){
+if(!$db){
   die('連線失敗');
 }else{
   echo '連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
