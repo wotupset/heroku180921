@@ -62,11 +62,11 @@ echo "\n";
 
 
 try{
-$table_name = "nya180923test";
+$table_name = "nya170415";//nya180923test
 echo '[pgsql]table_name='.$table_name;
 echo "\n";
 //移除table
-if(0){
+if(1){
 $sql=<<<EOT
 DROP TABLE IF EXISTS {$table_name}
 EOT;
@@ -76,6 +76,8 @@ echo "\n";
 //$stmt = $db->prepare($sql);
 //$stmt->execute();
 $stmt=$db->query($sql);
+$err=$db->errorInfo();
+if($err[0]>0){print_r( $err );}
 //echo 'del table';
 }
   
@@ -112,6 +114,9 @@ echo "\n";
 $stmt=$db->query($sql);
 //$stmt = $db->prepare($sql);
 //$stmt->execute();
+$err=$db->errorInfo();
+if($err[0]>0){print_r( $err );}
+
   
 $cc=0;
 while ($row = $stmt->fetch() ) {
@@ -140,6 +145,12 @@ EOT;
 print_r($sql);
 echo "\n";
 $stmt=$db->query($sql);
+$err=$db->errorInfo();
+
+if($err[0]>0){print_r( $err );}
+
+print_r($stmt);
+
 while($row = $stmt->fetch() ) {
   print_r($row);
 }
