@@ -50,6 +50,8 @@ if($err[0]>0){print_r( $err );}//錯誤資訊
 echo '[pdo]連線狀態='.$FFF;
 echo "\n";
 
+$pdo->setAttribute(PDO::ATTR_ERRORMODE, PDO::ERRORMODE_EXCEPTION); //让 PDO 在发生错误时抛出异常
+
 
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
@@ -105,10 +107,10 @@ if(1){
 $sql=<<<EOT
 DROP TABLE IF EXISTS {$table_name}
 EOT;
-$sql=<<<EOT
+$sqla=<<<EOT
 DROP TABLE IF EXISTS ?
 EOT;
-$sql=<<<EOT
+$sqla=<<<EOT
 DROP TABLE IF EXISTS :table_name
 EOT;
 
@@ -118,7 +120,7 @@ echo "\n";
 //IF NOT EXISTS
 $stmt = $db->prepare($sql);
 //$stmt->execute( $table_name ); //通过数组设置参数，执行 SQL 模版
-$stmt->bindParam(':table_name', $table_name); //通过bindParam设置参数
+//$stmt->bindParam(':table_name', $table_name); //通过bindParam设置参数
 $stmt->execute();
 //$stmt=$db->query($sql);
   
@@ -151,7 +153,9 @@ echo "\n";
 //AND schemaname != 'information_schema';
 //$stmt=$db->query($sql);
 $stmt = $db->prepare($sql);
-$stmt->execute();
+$result=$stmt->execute();
+print_r($result);
+
   
 $err=$db->errorInfo();
 if($err[0]>0){print_r( $err );}//錯誤資訊
