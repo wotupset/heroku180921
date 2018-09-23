@@ -107,10 +107,10 @@ if(1){
 $sql=<<<EOT
 DROP TABLE IF EXISTS {$table_name}
 EOT;
-$sqla=<<<EOT
+$sqlx=<<<EOT
 DROP TABLE IF EXISTS ?
 EOT;
-$sql=<<<EOT
+$sqlx=<<<EOT
 DROP TABLE IF EXISTS :table_name
 EOT;
 
@@ -120,7 +120,7 @@ echo "\n";
 //IF NOT EXISTS
 $stmt = $db->prepare($sql);
 //$stmt->execute( $table_name ); //通过数组设置参数，执行 SQL 模版
-$stmt->bindParam(':table_name', $table_name); //通过bindParam设置参数
+//$stmt->bindParam(':table_name', $table_name); //通过bindParam设置参数
 $stmt->execute();
 //$stmt=$db->query($sql);
   
@@ -172,7 +172,7 @@ CREATE TABLE IF NOT EXISTS {$table_name}
     timestamp timestamp default current_timestamp
 )
 EOT;
-$sql=<<<EOT
+$sqlx=<<<EOT
 CREATE TABLE IF NOT EXISTS :table_name 
 (
     c01 text NOT NULL,
@@ -188,7 +188,7 @@ echo "\n";
 //IF NOT EXISTS
 //$stmt=$db->query($sql);
 $stmt = $db->prepare($sql);
-$stmt->bindParam(':table_name', $table_name); //通过bindParam设置参数
+//$stmt->bindParam(':table_name', $table_name); //通过bindParam设置参数
 $stmt->execute();
   
 $err=$db->errorInfo();
