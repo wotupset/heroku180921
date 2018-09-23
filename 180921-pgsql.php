@@ -3,6 +3,13 @@ header("content-Type: application/json; charset=utf-8"); //強制
 
 error_reporting(E_ALL & ~E_NOTICE); //所有錯誤中排除NOTICE提示
 
+
+$time  =time();
+$time2 =array_sum( explode( ' ' , microtime() ) );
+echo 'php now='.date("Y-m-d H:i:s",$time)."\n";
+echo 'php UTC='.gmdate("Y-m-d H:i:s",$time)."\n";
+
+
 ///
 try{
 $db = parse_url( getenv("DATABASE_URL") );
@@ -44,7 +51,9 @@ $stmt=$db->query("SELECT CURRENT_DATE,CURRENT_TIME,CURRENT_TIMESTAMP,LOCALTIMEST
 //while ($row = $stmt->fetch() ){}
 $row = $stmt->fetch();//取回第一筆資料
 print_r($row);
-echo 'pgsql_timestamp='.$row['timestamp'];
+echo 'pgsql_current_timestamp='.$row['current_timestamp'];
+echo "\n";
+echo 'pgsql_localtimestamp='.$row['localtimestamp'];
 echo "\n";
 
 ?>
