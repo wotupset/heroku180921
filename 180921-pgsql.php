@@ -124,6 +124,9 @@ EOT;
 $sql=<<<EOT
 SELECT pg_size_pretty(pg_relation_size('$table_name'));
 EOT;
+$sql=<<<EOT
+SELECT pg_size_pretty( pg_total_relation_size('$table_name') );
+EOT;
   
 echo $sql;
 echo "\n";
