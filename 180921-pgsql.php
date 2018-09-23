@@ -170,10 +170,13 @@ $sql=<<<EOT
 SELECT pg_size_pretty(pg_relation_size('{$table_name}'));
 EOT;
 $sql=<<<EOT
-SELECT pg_size_pretty( pg_total_relation_size(current_database()) );
+SELECT pg_size_pretty( pg_total_relation_size( '{$table_name}' ) );
+EOT;
+$sql=<<<EOT
+SELECT pg_size_pretty(pg_database_size(current_database()));
 EOT;
 /*
-'{$table_name}'
+
 */
 print_r($sql);
 echo "\n";
