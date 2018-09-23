@@ -62,7 +62,9 @@ echo "\n";
 
 
 try{
-$table_name = "nya170415";//nya180923test
+$table_name=<<<EOT
+'nya170415'
+EOT;
 echo '[pgsql]table_name='.$table_name;
 echo "\n";
 //移除table
