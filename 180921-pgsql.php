@@ -218,8 +218,7 @@ EOT;
 $stmt=$db->prepare($sql);
 $array=array( uniqid('u',1),'不用不用',  $time );
 $stmt->execute($array)
-$array=array( uniqid('u',1),'问号占位符的预处理语句111',  $time );
-$stmt->execute($array)
+
 
 
 //插入資料 方法2 命名占位符的预处理语句
@@ -234,12 +233,7 @@ $array=array(
   ':c03' => base64_encode($time2) ,
 );
 $stmt->execute($array);
-$array=array(
-  ':c01' => uniqid('u',1), 
-  ':c02' => '命名占位符的预处理语句222',
-  ':c03' => base64_encode($time2) ,
-);
-$stmt->execute($array);
+
 
   
 }catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
