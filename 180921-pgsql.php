@@ -63,7 +63,7 @@ echo "\n";
 
 try{
 $table_name=<<<EOT
-'nya170415'
+nya170415
 EOT;
 echo '[pgsql]table_name='.$table_name;
 echo "\n";
@@ -107,9 +107,11 @@ if($err[0]>0){print_r( $err );}
 //列出全部table
 $sql=<<<EOT
 SELECT * FROM pg_catalog.pg_tables 
+EOT;
+/*
 WHERE schemaname != 'pg_catalog' 
 AND schemaname != 'information_schema';
-EOT;
+*/
 print_r($sql);
 echo "\n";
 //AND schemaname != 'information_schema';
