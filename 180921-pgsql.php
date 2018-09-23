@@ -122,8 +122,11 @@ $sql=<<<EOT
 SELECT pg_size_pretty(pg_database_size('Database Name'));
 EOT;
 $sql=<<<EOT
-SELECT pg_size_pretty(pg_relation_size(`$table_name`));
+SELECT pg_size_pretty(pg_relation_size('$table_name'));
 EOT;
+  
+echo $sql;
+echo "\n";
 
 foreach( $db->query($sql) as $k => $v ){
   echo 'pg_tablespace_size='.$v[0]."\n";
