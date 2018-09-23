@@ -39,6 +39,11 @@ $err=$db->errorInfo();
 if($err[0]>0){print_r( $err );}//錯誤資訊
 echo '[pdo]連線狀態='.$FFF;
 echo "\n";
+/*
+PDO::ATTR_EMULATE_PREPARES 启用或禁用预处理语句的模拟。有些驱动不支持或有限度地支持本地预处理。
+使用此设置强制PDO总是模拟预处理语句（如果为 TRUE ），或试着使用本地预处理语句（如果为 FALSE）。
+如果驱动不能成功预处理当前查询，它将总是回到模拟预处理语句
+*/
 $FFF=$db -> setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
 $err=$db->errorInfo();
 if($err[0]>0){print_r( $err );}//錯誤資訊
@@ -187,11 +192,20 @@ if($err[0]>0){print_r( $err );}//錯誤資訊
     [7] => 
 */
 $cc=0;
+foreach($stmt as  $key => $value){
+  $cc++;
+  echo $cc."\t";
+  print_r($key);
+  print_r($value);
+  echo $value['tablename'].", ";
+  echo "\n";
+}
+$cc=0;
 while ($row = $stmt->fetch() ) {
   //print_r($row);
   $cc++;
   echo $cc."\t";
-  echo $row['tablename']."\t";
+  echo $row['tablename'].", ";
   echo "\n";
 }
 
