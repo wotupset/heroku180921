@@ -175,6 +175,10 @@ EOT;
 $sql=<<<EOT
 SELECT pg_size_pretty(pg_database_size(current_database()));
 EOT;
+$sql=<<<EOT
+SELECT pg_size_pretty( pg_total_relation_size( 'public' ) );
+EOT;
+
 /*
 
 */
@@ -187,7 +191,9 @@ if($err[0]>0){print_r( $err );}
 
 print_r($stmt);
 
+$cc=0;
 while($row = $stmt->fetch() ) {
+  print_r($cc++);
   print_r($row);
 }
 
