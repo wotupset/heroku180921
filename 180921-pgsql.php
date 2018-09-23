@@ -68,7 +68,7 @@ echo "\n";
 //移除table
 if(0){
 $sql=<<<EOT
-DROP TABLE IF EXISTS `{$table_name}`
+DROP TABLE IF EXISTS {$table_name}
 EOT;
 print_r($sql);
 echo "\n";
@@ -81,7 +81,7 @@ $stmt=$db->query($sql);
   
 //建立table
 $sql=<<<EOT
-CREATE TABLE IF NOT EXISTS `{$table_name}` 
+CREATE TABLE IF NOT EXISTS {$table_name} 
 (
     c01 text UNIQUE NOT NULL,
     c02 text NOT NULL,
@@ -135,7 +135,7 @@ $sql=<<<EOT
 SELECT pg_size_pretty(pg_relation_size('{$table_name}'));
 EOT;
 $sql=<<<EOT
-SELECT pg_size_pretty( pg_total_relation_size('{$table_name}') );
+SELECT pg_size_pretty( pg_total_relation_size({$table_name}) );
 EOT;
 print_r($sql);
 echo "\n";
