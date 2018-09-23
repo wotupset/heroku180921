@@ -272,12 +272,13 @@ echo 'columns_max='.$columns_max."\n";
 $cc=0;
 while ($row = $stmt->fetch() ) {
   $cc++;
-  echo $cc;
-  echo "\n";
-  if($cc>50){
-    echo 'break'."\n";
-    break;
+  if($cc>50){echo('break'."\n");break;}
+  echo $cc.", ";
+  for($x = 0; $x < $columns_max; $x++) {
+    echo $row[$x].", ";
   }
+  echo "\n";
+
   //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n";
   //echo pg_unescape_bytea($row['c03'])."\n";
 }
