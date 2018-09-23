@@ -219,8 +219,10 @@ $sql=<<<EOT
 INSERT INTO {$table_name} (c01,c02,c03) VALUES ( ? , ? , ? );
 EOT;
 $stmt=$db->prepare($sql);
-$array=array( uniqid('u',1),'不用不用',  $time );
-$stmt->execute($array)
+$array=array();
+$array[0]=array( uniqid('u',1),'不用不用',  $time );
+$array[1]=array( uniqid('u',1),'问号占位符的预处理语句111',  $time );
+$stmt->execute($array);
 
 
 
