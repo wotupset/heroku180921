@@ -129,10 +129,27 @@ $stmt=$db->query($sql);
 $err=$db->errorInfo();
 if($err[0]>0){print_r( $err );}
 
-  
+/*
+    [schemaname] => public
+    [0] => public
+    [tablename] => nya170415
+    [1] => nya170415
+    [tableowner] => oircengeeaxksk
+    [2] => oircengeeaxksk
+    [tablespace] => 
+    [3] => 
+    [hasindexes] => 1
+    [4] => 1
+    [hasrules] => 
+    [5] => 
+    [hastriggers] => 
+    [6] => 
+    [rowsecurity] => 
+    [7] => 
+*/
 $cc=0;
 while ($row = $stmt->fetch() ) {
-  print_r($row);
+  //print_r($row);
   $cc++;
   echo $cc."\t";
   echo $row['tablename']."\t";
@@ -153,7 +170,7 @@ $sql=<<<EOT
 SELECT pg_size_pretty(pg_relation_size('{$table_name}'));
 EOT;
 $sql=<<<EOT
-SELECT pg_size_pretty( pg_total_relation_size('{$table_name}') );
+SELECT pg_size_pretty( pg_total_relation_size(pg_catalog.{$table_name}) );
 EOT;
 print_r($sql);
 echo "\n";
