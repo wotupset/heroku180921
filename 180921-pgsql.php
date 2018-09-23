@@ -122,17 +122,17 @@ $sql=<<<EOT
 SELECT pg_size_pretty(pg_database_size('Database Name'));
 EOT;
 $sql=<<<EOT
-SELECT pg_size_pretty(pg_relation_size('$table_name'));
+SELECT pg_size_pretty(pg_relation_size('{$table_name}'));
 EOT;
 $sql=<<<EOT
-SELECT pg_size_pretty( pg_total_relation_size('$table_name') );
+SELECT pg_size_pretty( pg_total_relation_size('{$table_name}') );
 EOT;
   
 echo $sql;
 echo "\n";
 
 foreach( $db->query($sql) as $k => $v ){
-  echo 'pg_tablespace_size='.$v[0]."\n";
+  echo '[pgsql]total_relation_size='.$v[0]."\n";
 }
 //
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
