@@ -83,7 +83,7 @@ $stmt=$db->query($sql);
 $sql=<<<EOT
 CREATE TABLE IF NOT EXISTS '{$table_name}'
 (
-    c01 UNIQUE text NOT NULL,
+    c01 text UNIQUE NOT NULL,
     c02 text NOT NULL,
     c03 text NOT NULL,
     ID SERIAL PRIMARY KEY,
