@@ -218,6 +218,8 @@ try{
 $sql=<<<EOT
 INSERT INTO {$table_name} (c01,c02,c03) VALUES ( ? , ? , ? );
 EOT;
+print_r($sql);
+echo "\n";
 $stmt=$db->prepare($sql);
 $array=array();
 $array[0]=array( uniqid('u',1),'不用不用',  $time );
@@ -234,6 +236,8 @@ foreach ($array as $k=>$v){
 $sql=<<<EOT
 INSERT INTO {$table_name} (c01,c02,c03) VALUES ( :c01 , :c02 , :c03 );
 EOT;
+print_r($sql);
+echo "\n";
 $stmt=$db->prepare($sql);
 $array=array();
 $array[0]=array(
