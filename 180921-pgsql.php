@@ -87,10 +87,10 @@ if($err[0]>0){print_r( $err );}
 $sql=<<<EOT
 CREATE TABLE IF NOT EXISTS {$table_name} 
 (
-    c01 text UNIQUE NOT NULL,
+    c01 text NOT NULL,
     c02 text NOT NULL,
     c03 text NOT NULL,
-    ID SERIAL PRIMARY KEY,
+    ID SERIAL UNIQUE PRIMARY KEY,
     timestamp timestamp default current_timestamp
 )
 EOT;
