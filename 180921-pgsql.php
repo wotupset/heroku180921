@@ -70,6 +70,8 @@ if(0){
 $sql=<<<EOT
 DROP TABLE IF EXISTS {$table_name}
 EOT;
+print_r($sql);
+echo "\n";
 //IF NOT EXISTS
 //$stmt = $db->prepare($sql);
 //$stmt->execute();
@@ -88,6 +90,8 @@ CREATE TABLE IF NOT EXISTS {$table_name}
     timestamp timestamp default current_timestamp,
 )
 EOT;
+print_r($sql);
+echo "\n";
 //IF NOT EXISTS
 $stmt=$db->query($sql);
 //$stmt = $db->prepare($sql);
@@ -100,6 +104,8 @@ SELECT * FROM pg_catalog.pg_tables
 WHERE schemaname != 'pg_catalog' 
 AND schemaname != 'information_schema';
 EOT;
+print_r($sql);
+echo "\n";
 //AND schemaname != 'information_schema';
 $stmt=$db->query($sql);
 //$stmt = $db->prepare($sql);
@@ -129,8 +135,7 @@ EOT;
 $sql=<<<EOT
 SELECT pg_size_pretty( pg_total_relation_size('{$table_name}') );
 EOT;
-  
-echo $sql;
+print_r($sql);
 echo "\n";
 $stmt=$db->query($sql);
 while($row = $stmt->fetch() ) {
