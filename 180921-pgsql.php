@@ -15,8 +15,10 @@ print_r($db_url );
   
   
 $db = new PDO( $db_url );
-echo '1連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
-  
+echo "\n";
+//echo '1連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
+echo "\n";
+
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 
@@ -37,7 +39,7 @@ foreach( $db->query("select version();") as $k => $v ){
 
 
 foreach( $db->query("SELECT now()::date, now()::time") as $k => $v ){
-  //print_r($v);
+  print_r($v);
   echo 'pgsql_time='.$v[0]."\n";
 }
 
