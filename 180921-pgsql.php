@@ -1,4 +1,7 @@
 <?php
+/*
+PostgreSQL練習
+*/
 header("content-Type: application/json; charset=utf-8"); //強制
 
 error_reporting(E_ALL & ~E_NOTICE); //所有錯誤中排除NOTICE提示
@@ -15,6 +18,10 @@ echo '[php]UTC='.gmdate("Y-m-d H:i:s",$time)."\n";
 
 ///
 try{
+/*
+PostgreSQL連線
+使用herokuapp.com提供的環境變數連線到資料庫
+*/
 $db_p = parse_url( getenv("DATABASE_URL") );
 $db_p["path"]=ltrim($db_p["path"],"/");
 print_r( $db_p );
@@ -38,17 +45,25 @@ echo "\n";
 
 
 echo '[php]version='.phpversion()."\n";
+/*
+PostgreSQL版本資訊
+*/
 foreach( $db->query("select version();") as $k => $v ){
   echo '[pgsql]version='.$v[0]."\n";
 }
 
 
-
+/*
+PostgreSQL時間日期
+*/
 foreach( $db->query("SELECT now()::date, now()::time") as $k => $v ){
   print_r($v);
   echo '[pgsql]now()='.$v[0]." ".$v[1]."\n";
 }
 
+/*
+PostgreSQL時間日期
+*/
 $stmt=$db->query("SELECT CURRENT_DATE,CURRENT_TIME,CURRENT_TIMESTAMP,LOCALTIMESTAMP");
 //print_r($stmt);
 //while ($row = $stmt->fetch() ){}
@@ -67,7 +82,11 @@ nya170415
 EOT;
 echo '[pgsql]table_name='.$table_name;
 echo "\n";
-//移除table
+
+/*
+PostgreSQL移除table
+*/
+
 if(1){
 $sql=<<<EOT
 DROP TABLE IF EXISTS {$table_name}
@@ -78,12 +97,17 @@ echo "\n";
 //$stmt = $db->prepare($sql);
 //$stmt->execute();
 $stmt=$db->query($sql);
+  
 $err=$db->errorInfo();
-if($err[0]>0){print_r( $err );}
-//echo 'del table';
+if($err[0]>0){print_r( $err );}//錯誤資訊
+
 }
   
-//建立table
+
+/*
+PostgreSQL建立table
+*/
+
 $sql=<<<EOT
 CREATE TABLE IF NOT EXISTS {$table_name} 
 (
@@ -100,11 +124,16 @@ echo "\n";
 $stmt=$db->query($sql);
 //$stmt = $db->prepare($sql);
 //$stmt->execute();
+  
 $err=$db->errorInfo();
-if($err[0]>0){print_r( $err );}
+if($err[0]>0){print_r( $err );}//錯誤資訊
 
   
-//列出全部table
+
+/*
+PostgreSQL列出全部table
+*/
+
 $sql=<<<EOT
 SELECT * FROM pg_catalog.pg_tables 
 WHERE schemaname != 'pg_catalog' 
@@ -126,8 +155,9 @@ echo "\n";
 $stmt=$db->query($sql);
 //$stmt = $db->prepare($sql);
 //$stmt->execute();
+  
 $err=$db->errorInfo();
-if($err[0]>0){print_r( $err );}
+if($err[0]>0){print_r( $err );}//錯誤資訊
 
 /*
     [schemaname] => public
@@ -162,7 +192,10 @@ while ($row = $stmt->fetch() ) {
 
 
 try{
-//
+/*
+PostgreSQL資料庫size
+*/
+
 $sql=<<<EOT
 SELECT pg_size_pretty(pg_database_size('Database Name'));
 EOT;
@@ -183,9 +216,9 @@ EOT;
 print_r($sql);
 echo "\n";
 $stmt=$db->query($sql);
+  
 $err=$db->errorInfo();
-
-if($err[0]>0){print_r( $err );}
+if($err[0]>0){print_r( $err );}//錯誤資訊
 
 print_r($stmt);
 
