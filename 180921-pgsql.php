@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS {$table_name}
     c02 text NOT NULL,
     c03 text NOT NULL,
     ID SERIAL PRIMARY KEY,
-    timestamp timestamp default current_timestamp,
+    timestamp timestamp default current_timestamp
 )
 EOT;
 print_r($sql);
