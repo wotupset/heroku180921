@@ -16,10 +16,10 @@ echo '[php]UTC='.gmdate("Y-m-d H:i:s",$time)."\n";
 
 ///
 try{
-$db = parse_url( getenv("DATABASE_URL") );
-$db["path"]=ltrim($db["path"],"/");
-print_r( $db );
-$db_url="pgsql:host=".$db['host'].";port=".$db['port'].";user=".$db['user'].";password=".$db['pass'].";dbname=".$db["path"].";";
+$db_p = parse_url( getenv("DATABASE_URL") );
+$db_p["path"]=ltrim($db_p["path"],"/");
+print_r( $db_p );
+$db_url="pgsql:host=".$db_p['host'].";port=".$db_p['port'].";user=".$db_p['user'].";password=".$db_p['pass'].";dbname=".$db_p["path"].";";
 print_r($db_url );
                            
 //pgsql:host=localhost;port=5432;dbname=testdb;user=bruce;password=mypass
@@ -59,5 +59,81 @@ echo '[pgsql]current_timestamp='.$row['current_timestamp'];
 echo "\n";
 echo '[pgsql]localtimestamp='.$row['localtimestamp'];
 echo "\n";
+
+
+
+try{
+//移除table
+if(0){
+$sql=<<<EOT
+DROP TABLE IF EXISTS $table_name
+EOT;
+//IF NOT EXISTS
+//$stmt = $db->prepare($sql);
+//$stmt->execute();
+$stmt=$db->query($sql);
+echo 'del table';
+}
+  
+//建立table
+$sql=<<<EOT
+CREATE TABLE IF NOT EXISTS $table_name
+(
+    c01 UNIQUE text NOT NULL,
+    c02 text NOT NULL,
+    c03 text NOT NULL,
+    ID SERIAL PRIMARY KEY,
+    timestamp timestamp default current_timestamp,
+)
+EOT;
+//IF NOT EXISTS
+$stmt=$db->query($sql);
+//$stmt = $db->prepare($sql);
+//$stmt->execute();
+
+  
+//列出全部table
+$sql=<<<EOT
+SELECT * FROM pg_catalog.pg_tables 
+WHERE schemaname != 'pg_catalog' 
+AND schemaname != 'information_schema';
+EOT;
+//AND schemaname != 'information_schema';
+$stmt=$db->query($sql);
+//$stmt = $db->prepare($sql);
+//$stmt->execute();
+  
+$cc=0;
+while ($row = $stmt->fetch() ) {
+  $cc++;
+  echo $cc."\t";
+  echo $row['tablename']."\t";
+  echo "\n";
+}
+
+  
+}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+
+
+
+try{
+//
+$sql=<<<EOT
+SELECT pg_size_pretty(pg_database_size('Database Name'));
+EOT;
+$sql=<<<EOT
+SELECT pg_size_pretty(pg_relation_size(`$table_name`));
+EOT;
+
+echo $FFF;
+$db->exec($FFF);
+foreach( $db->query($FFF) as $k => $v ){
+  echo 'pg_tablespace_size='.$v[0]."\n";
+}
+//
+}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+
+
+
 
 ?>
