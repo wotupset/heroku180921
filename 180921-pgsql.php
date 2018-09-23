@@ -182,7 +182,7 @@ $FFF=$stmt;
 $FFF2=$stmt;
 
 $cc=0;
-while ($row = $FFF->fetch() ) {
+while ($row = $stmt->fetch() ) {
   //print_r($row);
   $cc++;
   echo "b".$cc."\t";
@@ -190,6 +190,14 @@ while ($row = $FFF->fetch() ) {
   echo "\n";
 }
 
+$cc=0;
+foreach($FFF as  $key => $value){ 
+  $cc++;
+  echo "a".$cc."\t";
+  //print_r($value);
+  echo $value['tablename']."";
+  echo "\n";
+}
 
 /*
 PostgreSQL建立table
