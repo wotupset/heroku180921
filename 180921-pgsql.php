@@ -107,12 +107,6 @@ if(1){
 $sql=<<<EOT
 DROP TABLE IF EXISTS {$table_name}
 EOT;
-$sqlx=<<<EOT
-DROP TABLE IF EXISTS ?
-EOT;
-$sqlx=<<<EOT
-DROP TABLE IF EXISTS :table_name
-EOT;
 
   
 print_r($sql);
@@ -120,6 +114,10 @@ echo "\n";
 //IF NOT EXISTS
 $stmt = $db->prepare($sql);
 //$stmt->execute( $table_name ); //通过数组设置参数，执行 SQL 模版
+/*
+You can't use binding values for table names, database names etc.
+https://stackoverflow.com/questions/41430780/php-mysql-drop-database-using-prepared-statement
+*/
 //$stmt->bindParam(':table_name', $table_name); //通过bindParam设置参数
 $stmt->execute();
 //$stmt=$db->query($sql);
@@ -137,6 +135,10 @@ $sql=<<<EOT
 SELECT * FROM pg_catalog.pg_tables 
 WHERE schemaname != 'pg_catalog' 
 AND schemaname != 'information_schema';
+EOT;
+$sql=<<<EOT
+SELECT * FROM pg_catalog.pg_tables 
+WHERE schemaname = 'public';
 EOT;
   
 print_r($sql);
@@ -164,16 +166,6 @@ PostgreSQL建立table
 
 $sql=<<<EOT
 CREATE TABLE IF NOT EXISTS {$table_name} 
-(
-    c01 text NOT NULL,
-    c02 text NOT NULL,
-    c03 text NOT NULL,
-    ID SERIAL UNIQUE PRIMARY KEY,
-    timestamp timestamp default current_timestamp
-)
-EOT;
-$sqlx=<<<EOT
-CREATE TABLE IF NOT EXISTS :table_name 
 (
     c01 text NOT NULL,
     c02 text NOT NULL,
@@ -219,6 +211,73 @@ while ($row = $stmt->fetch() ) {
 
   
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+
+try{
+//插入資料 方法1 问号占位符的预处理语句
+$sql=<<<EOT
+INSERT INTO $table_name (c01,c02,c03)
+VALUES ( ? , ? , ? );
+EOT;
+$stmt=$db->prepare($sql);
+$array=array( uniqid('u',1),'不用不用',  $time );
+$stmt->execute($array)
+$array=array( uniqid('u',1),'问号占位符的预处理语句111',  $time );
+$stmt->execute($array)
+
+
+//插入資料 方法2 命名占位符的预处理语句
+$sql=<<<EOT
+INSERT INTO $table_name (c01,c02,c03)
+VALUES ( :c01 , :c02 , :c03 );
+EOT;
+$stmt=$db->prepare($sql);
+$array=array(
+  ':c01' => uniqid('u',1), 
+  ':c02' => '肏肏肏肏肏肏肏肏',
+  ':c03' => base64_encode($time2) ,
+);
+$stmt->execute($array);
+$array=array(
+  ':c01' => uniqid('u',1), 
+  ':c02' => '命名占位符的预处理语句222',
+  ':c03' => base64_encode($time2) ,
+);
+$stmt->execute($array);
+
+  
+}catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+
+
+
+try{
+$sql=<<<EOT
+select * from $table_name 
+EOT;
+//ORDER BY timestamp DESC
+// LIMIT 10
+$stmt = $db->prepare($sql);
+$stmt->execute();
+$rows_max = $stmt->rowCount();//計數
+echo 'rows_max='.$rows_max."\n";
+$columns_max = $stmt->columnCount();//計數
+echo 'columns_max='.$columns_max."\n";
+if(1){
+  //
+  $cc=0;
+  while ($row = $stmt->fetch() ) {
+    $cc++;
+    if($cc>50){
+      echo 'break'."\n";
+      break;
+    }
+    echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n";
+  }
+  //
+}  
+  
+  
+}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+
 
 
 
