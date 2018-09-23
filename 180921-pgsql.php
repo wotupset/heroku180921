@@ -53,13 +53,7 @@ echo "\n";
 //$db->setAttribute(PDO::ATTR_ERRORMODE, PDO::ERRORMODE_EXCEPTION); //让 PDO 在发生错误时抛出异常
 
   
-$FFF=$db->query("show TimeZone");
-$err=$db->errorInfo();
-if($err[0]>0){print_r( $err );}//錯誤資訊
-  
-echo "[pgsql]show TimeZone=".$FFF;
-echo "\n";
-  
+
 
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
