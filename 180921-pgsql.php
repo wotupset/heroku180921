@@ -16,6 +16,7 @@ print_r($db_url );
   
 $db = new PDO( $db_url );
 echo "\n";
+if(!$db){die('連線失敗');}
 //echo '1連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
 echo "\n";
 
@@ -24,12 +25,7 @@ echo "\n";
 
 ///
 
-if(!$db){
-  die('連線失敗');
-}else{
-  echo '連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
-  echo "\n";
-}
+
 
 echo 'version_php='.phpversion()."\n";
 foreach( $db->query("select version();") as $k => $v ){
@@ -42,5 +38,13 @@ foreach( $db->query("SELECT now()::date, now()::time") as $k => $v ){
   print_r($v);
   echo 'pgsql_time='.$v[0]."\n";
 }
+
+$stmt=$db->query("SELECT CURRENT_DATE,CURRENT_TIME,CURRENT_TIMESTAMP,LOCALTIMESTAMP");
+//print_r($stmt);
+//while ($row = $stmt->fetch() ){}
+$row = $stmt->fetch();//取回第一筆資料
+print_r($row);
+echo 'pgsql_timestamp='.$row['timestamp'];
+echo "\n";
 
 ?>
