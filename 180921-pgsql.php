@@ -68,7 +68,7 @@ echo "\n";
 //移除table
 if(0){
 $sql=<<<EOT
-DROP TABLE IF EXISTS $table_name
+DROP TABLE IF EXISTS {$table_name}
 EOT;
 //IF NOT EXISTS
 //$stmt = $db->prepare($sql);
@@ -79,7 +79,7 @@ $stmt=$db->query($sql);
   
 //建立table
 $sql=<<<EOT
-CREATE TABLE IF NOT EXISTS $table_name
+CREATE TABLE IF NOT EXISTS {$table_name}
 (
     c01 UNIQUE text NOT NULL,
     c02 text NOT NULL,
