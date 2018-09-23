@@ -132,10 +132,12 @@ EOT;
   
 echo $sql;
 echo "\n";
-
-foreach( $db->query($sql) as $k => $v ){
-  echo '[pgsql]total_relation_size='.$v[0]."\n";
+$stmt=$db->query($sql);
+while($row = $stmt->fetch() ) {
+  print_r($row);
 }
+
+
 //
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
