@@ -245,11 +245,41 @@ $array[1]=array(
 );
 
 $stmt->execute($array);
-
+$err=$db->errorInfo();
+if($err[0]>0){print_r( $err );}//錯誤資訊
 
   
 }catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
+
+try{
+$sql=<<<EOT
+select * from {$table_name} 
+EOT;
+//ORDER BY timestamp DESC
+// LIMIT 10
+$stmt = $db->prepare($sql);
+$stmt->execute();
+$rows_max = $stmt->rowCount();//計數
+echo 'rows_max='.$rows_max."\n";
+$columns_max = $stmt->columnCount();//計數
+echo 'columns_max='.$columns_max."\n";
+//
+$cc=0;
+while ($row = $stmt->fetch() ) {
+  $cc++;
+  echo $cc;
+  echo "\n";
+  if($cc>50){
+    echo 'break'."\n";
+    break;
+  }
+  //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n";
+  //echo pg_unescape_bytea($row['c03'])."\n";
+}
+  
+  
+}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 
 try{
