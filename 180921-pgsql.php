@@ -50,7 +50,7 @@ if($err[0]>0){print_r( $err );}//錯誤資訊
 echo '[pdo]連線狀態='.$FFF;
 echo "\n";
 
-$pdo->setAttribute(PDO::ATTR_ERRORMODE, PDO::ERRORMODE_EXCEPTION); //让 PDO 在发生错误时抛出异常
+$db->setAttribute(PDO::ATTR_ERRORMODE, PDO::ERRORMODE_EXCEPTION); //让 PDO 在发生错误时抛出异常
 
 
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
