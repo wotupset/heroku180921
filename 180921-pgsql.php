@@ -96,6 +96,7 @@ echo "\n";
 $stmt=$db->query($sql);
 //$stmt = $db->prepare($sql);
 //$stmt->execute();
+echo $db->errorInfo();
 
   
 //列出全部table
