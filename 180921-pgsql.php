@@ -181,6 +181,7 @@ $cc=0;
 $FFF=$stmt;
 $FFF2=$stmt;
 
+print_r($stmt);
 $cc=0;
 while ($row = $stmt->fetch() ) {
   //print_r($row);
@@ -190,6 +191,7 @@ while ($row = $stmt->fetch() ) {
   echo "\n";
 }
 
+print_r($FFF);
 $cc=0;
 foreach($FFF as  $key => $value){ 
   $cc++;
