@@ -216,7 +216,7 @@ try{
 
 //插入資料 方法1 问号占位符的预处理语句
 $sql=<<<EOT
-INSERT INTO $table_name (c01,c02,c03) VALUES ( ? , ? , ? );
+INSERT INTO {$table_name} (c01,c02,c03) VALUES ( ? , ? , ? );
 EOT;
 $stmt=$db->prepare($sql);
 $array=array( uniqid('u',1),'不用不用',  $time );
