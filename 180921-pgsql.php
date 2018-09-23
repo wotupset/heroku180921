@@ -68,7 +68,7 @@ echo "\n";
 //移除table
 if(0){
 $sql=<<<EOT
-DROP TABLE IF EXISTS '{$table_name}'
+DROP TABLE IF EXISTS `{$table_name}`
 EOT;
 print_r($sql);
 echo "\n";
@@ -81,7 +81,7 @@ $stmt=$db->query($sql);
   
 //建立table
 $sql=<<<EOT
-CREATE TABLE IF NOT EXISTS '{$table_name}' 
+CREATE TABLE IF NOT EXISTS `{$table_name}` 
 (
     c01 text UNIQUE NOT NULL,
     c02 text NOT NULL,
@@ -97,9 +97,7 @@ $stmt=$db->query($sql);
 //$stmt = $db->prepare($sql);
 //$stmt->execute();
 $err=$db->errorInfo();
-if($err[0]>0){
-print_r( $err );
-}
+if($err[0]>0){print_r( $err );}
 
   
 //列出全部table
