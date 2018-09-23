@@ -47,11 +47,16 @@ PDO::ATTR_EMULATE_PREPARES 启用或禁用预处理语句的模拟。有些驱�
 $FFF=$db -> setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
 $err=$db->errorInfo();
 if($err[0]>0){print_r( $err );}//錯誤資訊
-echo '[pdo]連線狀態='.$FFF;
+echo '[pdo]PREPARES='.$FFF;
 echo "\n";
 
 //$db->setAttribute(PDO::ATTR_ERRORMODE, PDO::ERRORMODE_EXCEPTION); //让 PDO 在发生错误时抛出异常
 
+$db->query("set timezone TO '{$timezone}';");//修改成+8時區
+$FFF=$db->query("show TimeZone");
+echo "[pgsql]show TimeZone=".$FFF;
+echo "\n";
+  
 
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
@@ -320,11 +325,11 @@ $stmt=$db->query($sql);
 $err=$db->errorInfo();
 if($err[0]>0){print_r( $err );}//錯誤資訊
 
-print_r($stmt);
+//print_r($stmt);
 
 $cc=0;
 while($row = $stmt->fetch() ) {
-  print_r($cc++);
+  //print_r($cc++);
   print_r($row);
 }
 
