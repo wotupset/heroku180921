@@ -179,7 +179,8 @@ if($err[0]>0){print_r( $err );}//錯誤資訊
 //$query->fetchAll()
 $cc=0;
 $FFF=$stmt;
-foreach($FFF as  $key => $value){ 
+$FFF2=$stmt;
+foreach($FFF2 as  $key => $value){ 
   $cc++;
   echo "a".$cc."\t";
   //print_r($value);
