@@ -36,7 +36,7 @@ foreach( $db->query("select version();") as $k => $v ){
 
 foreach( $db->query("SELECT now()::date, now()::time") as $k => $v ){
   print_r($v);
-  echo 'pgsql_time='.$v[0]."\n";
+  echo 'pgsql_time='.$v[0]." ".$v[1]."\n";
 }
 
 $stmt=$db->query("SELECT CURRENT_DATE,CURRENT_TIME,CURRENT_TIMESTAMP,LOCALTIMESTAMP");
