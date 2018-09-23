@@ -52,7 +52,7 @@ echo "\n";
 
 //$db->setAttribute(PDO::ATTR_ERRORMODE, PDO::ERRORMODE_EXCEPTION); //让 PDO 在发生错误时抛出异常
 
-$db->query("set timezone TO {$timezone};");//修改成+8時區
+$db->query("set timezone TO '{$timezone}';");//修改成+8時區
 $err=$db->errorInfo();
 if($err[0]>0){print_r( $err );}//錯誤資訊
   
