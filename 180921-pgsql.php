@@ -138,68 +138,25 @@ SELECT * FROM pg_catalog.pg_tables
 WHERE schemaname != 'pg_catalog' 
 AND schemaname != 'information_schema';
 EOT;
-$sql=<<<EOT
-SELECT * FROM pg_catalog.pg_tables 
-WHERE schemaname = 'public';
-EOT;
-/*
-information_schema.tables 
-  table_schema = 'public'
-
-*/
   
 print_r($sql);
 echo "\n";
-//AND schemaname != 'information_schema';
 //$stmt=$db->query($sql);
 $stmt = $db->prepare($sql);
 $stmt->execute();
-
 $err=$db->errorInfo();
 if($err[0]>0){print_r( $err );}//錯誤資訊
 
-/*
-    [schemaname] => public
-    [0] => public
-    [tablename] => nya170415
-    [1] => nya170415
-    [tableowner] => oircengeeaxksk
-    [2] => oircengeeaxksk
-    [tablespace] => 
-    [3] => 
-    [hasindexes] => 1
-    [4] => 1
-    [hasrules] => 
-    [5] => 
-    [hastriggers] => 
-    [6] => 
-    [rowsecurity] => 
-    [7] => 
-*/
-//$query->fetchAll()
 $cc=0;
-$FFF=$stmt;
-$FFF2=$stmt;
-
-print_r($stmt);
-$cc=0;
-while ($row = $stmt->fetch() ) {
-  //print_r($row);
-  $cc++;
-  echo "b".$cc."\t";
-  echo $row['tablename']."";
-  echo "\n";
-}
-
-print_r($FFF);
-$cc=0;
-foreach($FFF as  $key => $value){ 
+foreach($stmt as  $key => $value){ 
   $cc++;
   echo "a".$cc."\t";
   //print_r($value);
   echo $value['tablename']."";
   echo "\n";
 }
+
+
 
 /*
 PostgreSQL建立table
@@ -237,7 +194,27 @@ $stmt->execute();
 $err=$db->errorInfo();
 if($err[0]>0){print_r( $err );}//錯誤資訊
 
-  
+////
+$sql=<<<EOT
+SELECT * FROM pg_catalog.pg_tables 
+WHERE schemaname = 'public';
+EOT;
+print_r($sql);
+echo "\n";
+//$stmt=$db->query($sql);
+$stmt = $db->prepare($sql);
+$stmt->execute();
+$err=$db->errorInfo();
+if($err[0]>0){print_r( $err );}//錯誤資訊
+$cc=0;
+while ($row = $stmt->fetch() ) {
+  //print_r($row);
+  $cc++;
+  echo "b".$cc."\t";
+  echo $row['tablename']."";
+  echo "\n";
+}
+
 
 
   
