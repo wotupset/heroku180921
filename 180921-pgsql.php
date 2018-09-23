@@ -176,7 +176,7 @@ $sql=<<<EOT
 SELECT pg_size_pretty(pg_database_size(current_database()));
 EOT;
 $sql=<<<EOT
-SELECT pg_size_pretty( pg_total_relation_size( 'public' ) );
+SELECT pg_size_pretty( pg_total_relation_size( public ) );
 EOT;
 
 /*
