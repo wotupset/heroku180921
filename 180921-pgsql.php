@@ -13,7 +13,6 @@ echo '[php]timezone='.$timezone."\n";
 echo '[php]now='.date("Y-m-d H:i:s",$time)."\n";
 echo '[php]UTC='.gmdate("Y-m-d H:i:s",$time)."\n";
 
-$table_name = "nya180923";
 ///
 try{
 $db_p = parse_url( getenv("DATABASE_URL") );
@@ -63,6 +62,9 @@ echo "\n";
 
 
 try{
+$table_name = "nya180923";
+echo '[pgsql]table_name='.$table_name;
+echo "\n";
 //移除table
 if(0){
 $sql=<<<EOT
@@ -72,7 +74,7 @@ EOT;
 //$stmt = $db->prepare($sql);
 //$stmt->execute();
 $stmt=$db->query($sql);
-echo 'del table';
+//echo 'del table';
 }
   
 //建立table
