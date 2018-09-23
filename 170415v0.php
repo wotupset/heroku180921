@@ -63,7 +63,7 @@ $stmt=$db->query("SELECT CURRENT_DATE,CURRENT_TIME,CURRENT_TIMESTAMP,LOCALTIMEST
 //print_r($stmt);
 //while ($row = $stmt->fetch() ){}
 $row = $stmt->fetch();//取回第一筆資料
-//print_r($row);
+print_r($row);
 echo 'pgsql_timestamp='.$row['timestamp'];
 echo "\n";
 
